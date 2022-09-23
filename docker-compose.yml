@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  zantia:
+    build:
+      args:
+        user: estima
+        uid: 1000
+      dockerfile: Dockerfile
+      context: ./
+    restart: unless-stopped
+    volumes:
+      - ./zantia:/var/www/html/
+    ports:
+      - "80:80"
+      - "8444:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
