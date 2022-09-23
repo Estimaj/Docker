@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  enovotms-master:
+    build:
+      args:
+        user: estima
+        uid: 1000
+      dockerfile: Dockerfile
+      context: ./
+    restart: unless-stopped
+    volumes:
+      - ./master:/var/www/html/
+    ports:
+      - "8103:80"
+      - "8444:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
