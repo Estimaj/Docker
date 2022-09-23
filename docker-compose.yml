@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  vxvinte:
+    build:
+      args:
+        user: estima
+        uid: 1000
+      dockerfile: Dockerfile
+      context: ./
+    restart: unless-stopped
+    volumes:
+      - ./project:/var/www/html/
+    ports:
+      - "8101:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
