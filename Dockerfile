@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.4-apache
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libzip-dev \
     zip \
     vim \
     wget \
@@ -34,7 +35,7 @@ RUN a2ensite default-ssl
 RUN service apache2 restart
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd xsl intl soap zip
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd xsl intl soap zip dom
     
 # Arguments defined in docker-compose.yml
 ARG user

@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  enovotms-master:
+  evointegrations:
     build:
       args:
         user: estima
@@ -10,9 +10,9 @@ services:
       context: ./
     restart: unless-stopped
     volumes:
-      - ./master:/var/www/html/
+      - ./EvoIntegrations:/var/www/html/
     ports:
-      - "8103:80"
-      - "8444:443"
+      - "8102:80"
+      - "8445:443"
     extra_hosts:
       - "host.docker.internal:host-gateway"
