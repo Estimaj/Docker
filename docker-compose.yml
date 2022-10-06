@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  evointegrations:
+    build:
+      args:
+        user: estima
+        uid: 1000
+      dockerfile: Dockerfile
+      context: ./
+    restart: unless-stopped
+    volumes:
+      - ./EvoIntegrations:/var/www/html/
+    ports:
+      - "8102:80"
+      - "8445:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
