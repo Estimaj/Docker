@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  vxvinte:
+  evoapi:
     build:
       args:
         user: estima
@@ -10,8 +10,9 @@ services:
       context: ./
     restart: unless-stopped
     volumes:
-      - ./project:/var/www/html/
+      - ./EvoApi:/var/www/html/
     ports:
-      - "8101:80"
+      - "8103:80"
+      - "8446:443"
     extra_hosts:
       - "host.docker.internal:host-gateway"
