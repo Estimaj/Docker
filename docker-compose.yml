@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  vxvinte:
+  admin:
     build:
       args:
         user: estima
@@ -10,8 +10,9 @@ services:
       context: ./
     restart: unless-stopped
     volumes:
-      - ./project:/var/www/html/
+      - ./Admin:/var/www/html/
     ports:
       - "8101:80"
+      - "8448:443"
     extra_hosts:
       - "host.docker.internal:host-gateway"

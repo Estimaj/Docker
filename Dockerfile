@@ -1,10 +1,22 @@
 FROM php:8.1-apache
 
+# SSL Certification upload
+COPY ./ssl-certificate/mycert.crt /etc/apache2/mycert.crt
+COPY ./ssl-certificate/mycert.key /etc/apache2/mycert.key
+RUN chmod 777 /etc/apache2/mycert.crt && chmod 777 /etc/apache2/mycert.key
+
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN a2enmod rewrite
+RUN service apache2 restart
+
+# Config SSL Certification
+RUN a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb
+RUN sed -i '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile \/etc\/apache2\/mycert.crt' /etc/apache2/sites-available/default-ssl.conf
+RUN sed -i '/SSLCertificateKeyFile.*snakeoil\.key/cSSLCertificateKeyFile /etc/apache2/mycert.key' /etc/apache2/sites-available/default-ssl.conf
+RUN a2ensite default-ssl
 RUN service apache2 restart
 
 # Arguments defined in docker-compose.yml
