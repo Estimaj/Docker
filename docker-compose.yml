@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  integrations:
+    build:
+      args:
+        user: estima
+        uid: 1000
+      dockerfile: Dockerfile
+      context: ./
+    restart: unless-stopped
+    volumes:
+      - ./integrations:/var/www/html/
+    ports:
+      - "8102:80"
+      - "8448:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
