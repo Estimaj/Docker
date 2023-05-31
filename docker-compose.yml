@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-  admin:
+  project:
     build:
       args:
-        user: estima
+        user: joaoestima
         uid: 1000
       dockerfile: Dockerfile
       context: ./
     restart: unless-stopped
     volumes:
-      - ./Admin:/var/www/html/
+      - ./project:/var/www/html/
     ports:
       - "8101:80"
-      - "8448:443"
+      - "8447:443"
     extra_hosts:
       - "host.docker.internal:host-gateway"

@@ -1,3 +1,4 @@
+FROM node:latest AS node
 FROM php:8.1-apache
 
 # SSL Certification upload
@@ -18,6 +19,11 @@ RUN sed -i '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile \/etc\/apach
 RUN sed -i '/SSLCertificateKeyFile.*snakeoil\.key/cSSLCertificateKeyFile /etc/apache2/mycert.key' /etc/apache2/sites-available/default-ssl.conf
 RUN a2ensite default-ssl
 RUN service apache2 restart
+
+# Node handler
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 # Arguments defined in docker-compose.yml
 ARG user
@@ -50,9 +56,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+chown -R $user:$user /home/$user
 
-USER $user
+# USER $user
 
 # Set working directory
 WORKDIR /var/www/html
