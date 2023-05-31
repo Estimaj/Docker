@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  enovotms-master:
+  project:
     build:
       args:
         user: estima
@@ -10,7 +10,7 @@ services:
       context: ./
     restart: unless-stopped
     volumes:
-      - ./master:/var/www/html/
+      - ./project:/var/www/html/
     ports:
       - "8103:80"
       - "8444:443"
