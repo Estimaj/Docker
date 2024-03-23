@@ -10,8 +10,7 @@ All My Docker Images are in branches, depending on the PHP.
 
 ## SSL Certificate
 
-mkdir ssl-certificate
-cd ssl-certificate
+mkdir ssl-certificate && cd ssl-certificate
 openssl req -x509 -new -out mycert.crt -keyout mycert.key -days 365 -newkey rsa:4096 -sha256 -nodes
 
 - Note: Commun Name is the host name (ex. enovo-branch.local)
