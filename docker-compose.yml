@@ -6,6 +6,7 @@ services:
       args:
         user: estima
         uid: 1000
+        domain: personalwebsite.test
       dockerfile: Dockerfile
       context: ./
     restart: unless-stopped
@@ -13,6 +14,7 @@ services:
       - ./PersonalWebsite:/var/www/html/
     ports:
       - "8201:80"
+      - "8449:443"
     extra_hosts:
       - "host.docker.internal:host-gateway"
   adminer:
@@ -20,6 +22,7 @@ services:
       args:
         user: estima
         uid: 1000
+        domain: personaladmin.test
       dockerfile: Dockerfile
       context: ./
     restart: unless-stopped
