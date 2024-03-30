@@ -1,24 +1,53 @@
-# Docker
+# Docker Setup Guide
 
-All My Docker Images are in branches, depending on the PHP.
+This repository contains Docker configurations for various PHP versions.
 
-# Guid
+## Usage Guide
 
-## Add in Host
+### 1. Configure Hosts File
 
-127.0.0.1 branch.local
+Ensure you add the domain name to your host file.
 
-## SSL Certificate
+Example:
+```
+127.0.0.1 website.local
+```
 
-mkdir ssl-certificate && cd ssl-certificate && openssl req -x509 -new -out mycert.crt -keyout mycert.key -days 365 -newkey rsa:4096 -sha256 -nodes
+### 2. Update Configuration Files
 
-- Note: Commun Name is the host name (ex. branch.local)
+In your `docker-compose.yml` file:
 
-## Confirm in docker-compose file
-Project name
-Available ports
+```yaml
+services: 
+    <project-name>:
+        user: <name>
+        domain: <your domain>
+    volumes:
+        - ./<project-folder-name>:/var/www/html/
+    ports:
+        - "8201:80"
+        - "8000:443"
+```
 
-## Run
+Ensure ports are unique and unused.
 
-cd ..
-docker-compose up
+### 3. Run Docker Containers
+
+Navigate to the directory containing your `docker-compose.yml` file in your terminal.
+
+Run the following command:
+```bash
+docker-compose up --build
+```
+
+### Optional: Visual Studio Code Integration
+
+Install the Docker extension for Visual Studio Code (`ms-azuretools.vscode-docker`).
+
+In the Docker tab, right-click on the running container and select "Attach Visual Studio Code" to open the project inside Docker.
+
+You should now have access to PHP and npm commands, ready for coding.
+
+---
+
+<center> Best wishes on your journey! 💛 </center>
