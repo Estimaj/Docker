@@ -51,5 +51,3 @@ You should now have access to PHP and npm commands, ready for coding.
 ---
 
 <center> Best wishes on your journey! 💛 </center>
-
-test
